@@ -34,6 +34,15 @@ app.get("/create", (req, res) => {
   });
 });
 
+app.get("/edit/:filename", (req, res) => {
+  const filename = req.params.filename;
+
+  fs.readFile(`./Files/${filename}`, "utf-8", (err, data) => {
+    if (err) res.send("ERROR IN READING");
+    res.render("edit", { data, filename });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server listening at PORT : ${port}`);
 });
