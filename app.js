@@ -33,7 +33,7 @@ app.get("/create", (req, res) => {
    const fileName = req.body.fileName
 
      
-    fs.writeFile(`./files/${fileName}`, req.body.fileContent, (err) => {
+    fs.writeFile(`./Files/${fileName}`, req.body.fileContent, (err) => {
        if (err)  return res.status(500).send("ERROR IN WRITING")
         res.redirect('/')
        })
@@ -57,8 +57,8 @@ app.post("/update/:filename", (req, res) => {
 
 app.get("/delete/:filename", (req, res) => {
   const filename = req.params.filename;
-  fs.unlink(`./Files/${filename}`, (err) => {
-    if (err) return res.send("ERROR IN DELETING");
+  fs.rm(`./Files/${filename}`, (err) => {
+    if (err) return res.redirect('/');
     res.redirect("/");
   });
 });
