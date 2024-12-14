@@ -3,12 +3,137 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Update Document</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background-color: #f4f7fc;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Navbar styles */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #87CEEB; /* Sky blue */
+        padding: 15px 25px;
+        color: white;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      nav .nav-left {
+        font-weight: bold;
+      }
+
+      nav .nav-right {
+        font-size: 1rem;
+      }
+
+      nav button {
+        padding: 8px 16px;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        color: #007BFF;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      nav button:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Form container styles */
+      .form-container {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        margin: 50px auto 0;
+      }
+
+      .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        resize: vertical;
+        height: 150px;
+        box-sizing: border-box;
+      }
+
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #007BFF;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      }
+
+      .form-group input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-group input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
   </head>
   <body>
-    <form action="/update/<%= filename%>">
-      <textarea><%= data%> </textarea>
-      <input type="submit" />
-    </form>
+    <!-- Navbar -->
+    <nav>
+      <div class="nav-left">Hissab-Kitab</div>
+      <div class="nav-right">
+        <button onclick="window.history.back();">Back</button>
+      </div>
+    </nav>
+
+    <!-- Form Container -->
+    <div class="form-container">
+      <h2>Update Document</h2>
+      <form action="/update/<%= filename %>" method="post">
+        <div class="form-group">
+          <label for="updated_text">Updated Text</label>
+          <textarea name="updated_text" id="updated_text" placeholder="Edit your text here..."><%= data %></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Update Document" />
+        </div>
+      </form>
+    </div>
   </body>
 </html>

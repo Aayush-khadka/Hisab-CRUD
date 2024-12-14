@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const fs = require("fs");
+const path = require('path');
 
 app.set("view engine", "ejs");
 // app.use(express.static(path.join(__dirname, "public")));
@@ -18,28 +19,47 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create", (req, res) => {
-  const currentdate = new Date();
+  res.render("create")
+  });
+
+  app.post('/createhisab',(req,res)=>{
+    const currentdate = new Date();
   const day = String(currentdate.getDate()).padStart(2, "0");
   const month = String(currentdate.getMonth() + 1).padStart(2, "0");
   const year = String(currentdate.getFullYear());
 
-  const file = `${day}-${month}-${year}.txt`;
+   let  file = `${day}-${month}-${year}.txt`;
 
-  fs.writeFile(`./files/${file}`, "DAL CHINI", (err) => {
-    if (err) {
-      res.send("ERROR IN WRITING");
-    } else {
-      res.send("DONE");
-    }
-  });
-});
+   const fileName = req.body.fileName
+
+     
+    fs.writeFile(`./files/${fileName}`, req.body.fileContent, (err) => {
+       if (err)  return res.status(500).send("ERROR IN WRITING")
+        res.redirect('/')
+       })
+  })
 
 app.get("/edit/:filename", (req, res) => {
   const filename = req.params.filename;
-
   fs.readFile(`./Files/${filename}`, "utf-8", (err, data) => {
-    if (err) res.send("ERROR IN READING");
+    if (err) return res.send("ERROR IN READING");
     res.render("edit", { data, filename });
+  });
+});
+
+app.post("/update/:filename", (req, res) => {
+  const filename = req.params.filename;
+  fs.writeFile(`./Files/${filename}`, req.body.updated_text, (err) => {
+    if (err) return res.send("ERROR IN READING");
+    res.redirect("/");
+  });
+});
+
+app.get("/delete/:filename", (req, res) => {
+  const filename = req.params.filename;
+  fs.unlink(`./Files/${filename}`, (err) => {
+    if (err) return res.send("ERROR IN DELETING");
+    res.redirect("/");
   });
 });
 

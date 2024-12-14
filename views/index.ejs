@@ -3,13 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Hissab-Kitab</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+      }
+
+      /* Navbar styling */
+      .navbar {
+        background-color: #87ceeb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar h1 {
+        margin: 0;
+        color: white;
+        font-size: 24px;
+      }
+
+      .navbar .create-button {
+        background-color: white;
+        color: #87ceeb;
+        border: 2px solid #87ceeb;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .navbar .create-button:hover {
+        background-color: #e0f7ff;
+      }
+
+      /* Content area styling */
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .file-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .file-item h1 {
+        font-size: 18px;
+        margin: 0;
+        color: #555;
+      }
+
+      .file-item a {
+        margin-left: 10px;
+        padding: 6px 12px;
+        background-color: #87ceeb;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      .file-item a:hover {
+        background-color: #63b8e6;
+      }
+
+      .no-files {
+        text-align: center;
+        font-size: 20px;
+        color: #555;
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <% files.forEach((file)=>{ %>
-    <h1><%= file%></h1>
-    <a href="/edit/<%= file%>"> EDIT</a>
-
-    <% }) %>
+    <div class="navbar">
+      <h1>Hissab-Kitab</h1>
+      <a href="/create" class="create-button">Create Hissab</a>
+    </div>
+    <div class="container">
+      <% if (files && files.length > 0) { %> 
+        <% files.forEach((file) => { %>
+          <div class="file-item">
+            <h1><%= file.split(".")[0] %></h1>
+            <div>
+              <a href="/edit/<%= file %>">EDIT</a>
+              <a href="/delete/<%= file %>">DELETE</a>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div class="no-files">
+          <h1>NO FILES</h1>
+        </div>
+      <% } %>
+    </div>
   </body>
 </html>
